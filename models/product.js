@@ -29,7 +29,10 @@ const productSchema = new mongoose.Schema({
       required: true,
     },
   ],
-  ratings: [ratingSchema],
+  ratings: {
+    type: [ratingSchema],
+    default: [], // 👈 ensures new product starts with no ratings
+  },
 });
 const Product = mongoose.model("Product", productSchema);
 module.exports = { Product, productSchema };
