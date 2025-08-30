@@ -9,7 +9,7 @@ const productRouter = require("./routes/product");
 const userRouter = require("./routes/user");
 
 //Initializing
-const PORT = 3000; // Defining the port number
+const PORT = process.env.PORT || 3000; // Defining the port number
 const app = express(); //initializing express
 const DB =
   "mongodb+srv://amitrathore12a:16012005@cluster0.bbgmuc4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"; // MongoDB connection string
