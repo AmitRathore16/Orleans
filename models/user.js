@@ -1,12 +1,7 @@
 const mongoose = require("mongoose");
-const { productSchema } = require("./product"); // Importing product schema for cart items
 
 const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true,
-  },
+  name: { type: String, required: true, trim: true },
   email: {
     type: String,
     required: true,
@@ -17,31 +12,31 @@ const userSchema = new mongoose.Schema({
       message: "Please enter a valid email address",
     },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-  addresses: {
-    // ✅ changed from single 'address' to list
-    type: [String],
-    default: [],
-  },
-  type: {
-    type: String,
-    default: "user",
-  },
+  password: { type: String, required: true },
+  addresses: { type: [String], default: [] },
+  type: { type: String, default: "user" },
+
+  // Cart: only store id, name, price, images
   cart: [
     {
-      product: productSchema,
-      quantity: {
-        type: Number,
-        required: true,
+      product: {
+        _id: { type: mongoose.Schema.Types.ObjectId, required: true },
+        name: { type: String, required: true },
+        price: { type: Number, required: true },
+        images: [String],
       },
+      quantity: { type: Number, required: true, default: 1 },
     },
   ],
+
   wishlist: [
     {
-      product: productSchema,
+      product: {
+        _id: { type: mongoose.Schema.Types.ObjectId, required: true },
+        name: { type: String, required: true },
+        price: { type: Number, required: true },
+        images: [String],
+      },
     },
   ],
 });

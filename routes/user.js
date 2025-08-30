@@ -10,13 +10,9 @@ userRouter.post("/api/add-to-cart", auth, async (req, res) => {
   try {
     const { id, quantity = 1 } = req.body;
     const product = await Product.findById(id);
-    let user = await User.findById(req.user);
-
     if (!product) return res.status(404).json({ msg: "Product not found" });
-
-    if (product.quantity < quantity) {
+    if (product.quantity < quantity)
       return res.status(400).json({ msg: "Item out of stock" });
-    }
 
     const productData = {
       _id: product._id,
@@ -25,14 +21,12 @@ userRouter.post("/api/add-to-cart", auth, async (req, res) => {
       images: product.images,
     };
 
-    let existing = user.cart.find((p) => p.product._id.equals(product._id));
+    const user = await User.findById(req.user);
+    const existing = user.cart.find((p) => p.product._id.equals(product._id));
 
     if (existing) {
-      if (existing.quantity + quantity > product.quantity) {
-        return res
-          .status(400)
-          .json({ msg: "Cannot add more than available stock" });
-      }
+      if (existing.quantity + quantity > product.quantity)
+        return res.status(400).json({ msg: "Cannot add more than stock" });
       existing.quantity += quantity;
     } else {
       user.cart.push({ product: productData, quantity });
@@ -207,7 +201,7 @@ userRouter.post("/api/add-to-wishlist", auth, async (req, res) => {
     const product = await Product.findById(id);
     if (!product) return res.status(404).json({ msg: "Product not found" });
 
-    let user = await User.findById(req.user);
+    const user = await User.findById(req.user);
 
     const exists = user.wishlist.some((item) =>
       item.product._id.equals(product._id)
