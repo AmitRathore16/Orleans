@@ -28,6 +28,7 @@ Flutter (Cross-platform: Android & iOS)
 Backend:
 Node.js
 Express.js
+NodeMailer (OTP verification)
 Database:
 MongoDB
 Voice Search:
