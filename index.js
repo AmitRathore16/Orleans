@@ -1,7 +1,7 @@
 //Imports from packages
 const express = require("express"); // Importing express module
 const mongoose = require("mongoose"); // Importing mongoose for MongoDB interactions
-
+require("dotenv").config();
 //Imports from other files
 const authRouter = require("./routes/auth"); // Importing the auth router from routes/auth.js
 const adminRouter = require("./routes/admin");
@@ -11,8 +11,7 @@ const userRouter = require("./routes/user");
 //Initializing
 const PORT = process.env.PORT || 3000; // Defining the port number
 const app = express(); //initializing express
-const DB =
-  "mongodb+srv://amitrathore12a:16012005@cluster0.bbgmuc4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"; // MongoDB connection string
+const DB = process.env.MONGO_URI; // MongoDB connection string
 
 //Middleware
 app.use(express.json());
