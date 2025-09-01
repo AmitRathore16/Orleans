@@ -5,13 +5,13 @@ const sendOtpEmail = async (email, otp) => {
     let transporter = nodemailer.createTransport({
       service: "Gmail", // or your email provider
       auth: {
-        user: "amitrathore12a@gmail.com",
-        pass: "gbzmfjxibpdfmkmi", // or use App Password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS, // or use App Password
       },
     });
 
     let info = await transporter.sendMail({
-      from: '"Orleans App" <amitrathore12a@gmail.com>',
+      from: '"Orleans App" <process.env.EMAIL_USER>',
       to: email,
       subject: "Your OTP for Orleans App Signup",
       text: `Your OTP is ${otp}. It will expire in 5 minutes.`,
